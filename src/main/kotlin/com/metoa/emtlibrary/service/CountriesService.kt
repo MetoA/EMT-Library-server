@@ -17,6 +17,8 @@ class CountriesService(
 
     fun findAll(): List<Country> = countriesRepository.findAll()
 
+    fun getSize() = countriesRepository.getSize()
+
     @Transactional
     fun createCountry(name: String, continent: String): Country {
         val country = Country(

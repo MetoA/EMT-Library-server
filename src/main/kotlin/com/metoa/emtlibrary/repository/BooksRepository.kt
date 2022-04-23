@@ -22,4 +22,7 @@ interface BooksRepository: JpaRepository<Book, Long> {
     @Modifying
     @Query("update Book b set b.availableCopies = (b.availableCopies+1) where b.id = :id")
     fun addCopy(id: Long): Int
+
+    @Query("select count(b) from Book b")
+    fun getSize(): Long
 }

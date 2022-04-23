@@ -19,6 +19,8 @@ class AuthorsService(
 
     fun findAll(): List<Author> = authorsRepository.findAll()
 
+    fun getSize() = authorsRepository.getSize()
+
     @Transactional
     fun createAuthor(name: String, surname: String, country: Country): Author {
         val author = Author(

@@ -17,6 +17,8 @@ class BooksService(
 
     fun getPaged(pageable: Pageable) = booksRepository.findAll(pageable)
 
+    fun getSize() = booksRepository.getSize()
+
     @Transactional
     fun createBook(name: String, category: BookCategory, author: Author): Book {
         val book = Book(

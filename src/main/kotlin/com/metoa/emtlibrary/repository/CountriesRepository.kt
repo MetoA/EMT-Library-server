@@ -12,4 +12,7 @@ interface CountriesRepository: JpaRepository<Country, Long> {
     @Modifying
     @Query("update Country c set c.name = :name, c.continent = :continent where c.id = :id")
     fun editCountry(id: Long, name: String, continent: String): Int
+
+    @Query("select count(c) from Country c")
+    fun getSize(): Long
 }

@@ -8,6 +8,7 @@ import com.metoa.emtlibrary.service.BooksService
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,15 +20,17 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/books")
+@CrossOrigin("http://localhost:3000")
 class BooksController(
     val booksService: BooksService,
     val authorsService: AuthorsService
 ) {
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): ResponseEntity<Book> {
-        val book = booksService.findById(id).orElseThrow { NotFoundException("Book with id $id not found") }
-        return ResponseEntity.status(HttpStatus.OK).body(book)
-    }
+    fun findById(@PathVariable id: Long): Book =
+        booksService.findById(id).orElseThrow { NotFoundException("Book with id $id not found") }
+
+    @GetMapping("/size")
+    fun getSize(): Long = booksService.getSize()
 
     @GetMapping("/paged")
     fun getPaged(pageable: Pageable): List<Book> = booksService.getPaged(pageable).content

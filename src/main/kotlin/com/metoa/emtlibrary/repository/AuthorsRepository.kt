@@ -13,4 +13,7 @@ interface AuthorsRepository: JpaRepository<Author, Long> {
     @Modifying
     @Query("update Author a set a.name = :name, a.surname = :surname, a.country = :country where a.id = :id")
     fun editAuthor(id: Long, name: String, surname: String, country: Country): Int
+
+    @Query("select count(a) from Author a")
+    fun getSize(): Long
 }
